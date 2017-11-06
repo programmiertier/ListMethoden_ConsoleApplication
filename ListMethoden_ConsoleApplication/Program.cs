@@ -67,6 +67,41 @@ namespace ListMethoden_ConsoleApplication
                     WriteLine("ID: {0}\t{1}", zaehler++, einzel);
                 }
             }
+
+            public void etwasAbladen()
+            {
+                WriteLine("Was möchten sie abladen? 1 für gewicht, 2 für index");
+                string eingabe = ReadLine();
+                if (eingabe == "1")
+                {
+                    Write("Gewicht:");
+                    double gewicht;
+                    if (double.TryParse(ReadLine(), out gewicht))
+                    {
+                        frachtliste.Remove(gewicht);
+                    }
+                }
+                else if (eingabe == "2")
+                {
+                    Write("Index:");
+                    try
+                    {
+                        int index = Convert.ToInt32(ReadLine());
+                        if (index <= frachtliste.Count)
+                        {
+                            frachtliste.RemoveAt(index);
+                        }
+                    }
+                    catch (FormatException e)
+                    {
+                        WriteLine(e.Message);
+                    }
+                }
+                else
+                {
+                    WriteLine("Falsche Eingabe");
+                }
+            }
         }
 
         static void Main(string[] args)
@@ -104,12 +139,15 @@ namespace ListMethoden_ConsoleApplication
             kuchenLadung.Ladeliste();
             WriteLine("Welchen Wert wollen sie entfernen?, bitte id angeben");
 
-            double entfernen;
+            /*double entfernen;
             while (double.TryParse(ReadLine(), out entfernen))
             {
                 kuchenLadung.userEntladen(entfernen);
                 kuchenLadung.Ladeliste();
-            }
+            }*/
+
+            kuchenLadung.etwasAbladen();
+            kuchenLadung.Ladeliste();
             ReadLine();
         }
     }
